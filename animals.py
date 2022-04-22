@@ -54,7 +54,7 @@ class bearClass(AnimalClass):
 class chickenClass(AnimalClass):
     #Constructor
     def __init__(self):
-        self.value = "bug"
+        self.value = "chicken"
 
     #Methods
     def eat(self):
@@ -132,33 +132,52 @@ sheep = sheepClass()
 #If possible, remove animal[1]
 
 animals_array = [antelope, bigfish, bug, bear, chicken, cow, fox, giraffe, lion, panda, sheep]
-test1 = "fox,bug,chicken,sheep" 
+test1 = "fox,bug,chicken,grass,sheep" 
 split_testcase = test1.split(",")
-strip_quotes = [x for x in split_testcase]
 
+list_mutated = True
 
-for index, item in enumerate(split_testcase):
-    if item in str(animals_array):
-        print(item)
-        print(animals_array.index(item))
-        animals_eaten = animals_array[6].eat()
-        print(animals_eaten)
+while list_mutated and len(split_testcase) > 1:
+    for index, item in enumerate(split_testcase):
+        if item in str(animals_array):
+            location = animals_array.index(eval(item))
+            animals_eaten = animals_array[location].eat()
+            print(animals_eaten)
 
-        #Check for leftmost bound of array
-        if index == 0:
-            if split_testcase[index+1]in animals_eaten:
-                print(f"{split_testcase[index+1]} gets eaten by {item}")
+            #Check for leftmost bound of array
+            if index == 0:
+                if split_testcase[index+1] in animals_eaten:
+                    print(f"{split_testcase[index+1]} gets eaten by {item}")
+                    split_testcase.pop(index+1)
+                    list_mutated = True
+                    print(split_testcase)
+                    break
             
-        #Check for rightmost bound of array
-        elif index == len(split_testcase)-1:
-            if split_testcase[index-1]in animals_eaten:
-                print(f"{split_testcase[index-1]} gets eaten by {item}")
+            #Check for rightmost bound of array
+            elif index == len(split_testcase)-1:
+                if split_testcase[index-1] in animals_eaten:
+                    print(f"{split_testcase[index-1]} gets eaten by {item}")
+                    split_testcase.pop(index-1)
+                    list_mutated = True
+                    print(split_testcase)
+                    break
+
+            else:
+                if split_testcase[index-1] in animals_eaten:
+                    print(f"{split_testcase[index-1]} gets eaten by {item}")
+                    split_testcase.pop(index-1)
+                    list_mutated = True
+                    print(split_testcase)
+                    break
+
+                elif split_testcase[index+1] in animals_eaten:
+                    print(f"{split_testcase[index+1]} gets eaten by {item}")
+                    split_testcase.pop(index+1)
+                    list_mutated = True
+                    print(split_testcase)
+                    break
+        
+            list_mutated = False
 
         else:
-            if split_testcase[index-1] in animals_eaten:
-                print(f"{split_testcase[index-1]} gets eaten by {item}")
-            elif split_testcase[index+1]in animals_eaten:
-                print(f"{split_testcase[index+1]} gets eaten by {item}")
-
-    else:
-        print(f"{item} doesn't eat anything")
+            print(f"{item} doesn't eat anything")
