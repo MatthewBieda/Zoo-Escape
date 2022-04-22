@@ -136,7 +136,7 @@ def find_remaining_animals(testcase):
     This function takes in the testcase, and returns an output array containing the input, all the
     steps of eating, and the remaining animals when eating is no longer possible
     '''
-    testcase = test1.split(",")
+    testcase = testcase.split(",")
     #Setting a boolean flag to detect when the array has been mutated, then resetting the loop
     list_mutated = True
     output_array = [test1]
@@ -144,7 +144,7 @@ def find_remaining_animals(testcase):
     #For every animal in the testcase, find its corresponding index in the object array and 
     #run its object method to obtain the animals it can eat. Then check if those animals are to the
     #left or right of it in the input array, whilst respecting array bounds. If so mutate the list,
-    #update the flag and break the loop for another iteration.
+    #update the flag andbreak the loop for another iteration.
     while list_mutated and len(testcase) > 1:
         for index, item in enumerate(testcase):
             if item in str(animals_array):
