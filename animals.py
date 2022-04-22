@@ -144,7 +144,7 @@ def find_remaining_animals(testcase):
     #For every animal in the testcase, find its corresponding index in the object array and 
     #run its object method to obtain the animals it can eat. Then check if those animals are to the
     #left or right of it in the input array, whilst respecting array bounds. If so mutate the list,
-    #update the flag andbreak the loop for another iteration.
+    #update the flag and break the loop for another iteration.
     while list_mutated and len(testcase) > 1:
         for index, item in enumerate(testcase):
             if item in str(animals_array):
