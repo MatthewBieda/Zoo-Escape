@@ -137,15 +137,13 @@ def find_remaining_animals(testcase):
     steps of eating, and the remaining animals when eating is no longer possible
     '''
     testcase = testcase.split(",")
-    #Setting a boolean flag to detect when the array has been mutated, then resetting the loop
-    list_mutated = True
     output_array = [test1]
     
     #For every animal in the testcase, find its corresponding index in the object array and 
     #run its object method to obtain the animals it can eat. Then check if those animals are to the
     #left or right of it in the input array, whilst respecting array bounds. If so mutate the list,
     #update the flag and break the loop for another iteration.
-    while list_mutated and len(testcase) > 1:
+    while len(testcase) > 1:
         for index, item in enumerate(testcase):
             if item in str(animals_array):
                 location = animals_array.index(eval(item))
@@ -156,7 +154,6 @@ def find_remaining_animals(testcase):
                     if testcase[index+1] in animals_eaten:
                         output_array.append(f"{item} eats {testcase[index+1]}")
                         testcase.pop(index+1)
-                        list_mutated = True
                         break
             
                 #Check for rightmost bound of array
@@ -164,23 +161,19 @@ def find_remaining_animals(testcase):
                     if testcase[index-1] in animals_eaten:
                         output_array.append(f"{item} eats {testcase[index-1]}")
                         testcase.pop(index-1)
-                        list_mutated = True
                         break
 
                 else:
                     if testcase[index-1] in animals_eaten:
                         output_array.append(f"{item} eats {testcase[index-1]}")
                         testcase.pop(index-1)
-                        list_mutated = True
                         break
 
                     elif testcase[index+1] in animals_eaten:
                         output_array.append(f"{item} eats {testcase[index+1]}")
                         testcase.pop(index+1)
-                        list_mutated = True
                         break
         
-                list_mutated = False
 
             else:
                 print(f"{item} doesn't eat anything")
